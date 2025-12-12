@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion';
 
 interface MedalBadgeProps {
     type: 'gold' | 'silver' | 'bronze';
@@ -11,15 +10,15 @@ interface MedalBadgeProps {
 
 const medalConfig = {
     gold: {
-        emoji: '🥇',
+        color: '#C9A537',  // Exact mustard gold
         label: 'Gold',
     },
     silver: {
-        emoji: '🥈',
+        color: '#BEBEBE',  // Exact gray
         label: 'Silver',
     },
     bronze: {
-        emoji: '🥉',
+        color: '#C87533',  // Exact orange/copper
         label: 'Bronze',
     },
 };
@@ -28,34 +27,20 @@ export default function MedalBadge({ type, count, label }: MedalBadgeProps) {
     const config = medalConfig[type];
 
     return (
-        <div className="flex items-center gap-3">
-            {/* Medal Emoji with animation */}
-            <motion.span
-                className="text-2xl"
-                animate={{
-                    scale: [1, 1.2, 1],
-                    rotate: [0, 10, -10, 0],
-                }}
-                transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                }}
-                style={{
-                    display: 'inline-block',
-                    filter: 'drop-shadow(0 2px 8px rgba(255, 215, 0, 0.5))',
-                }}
-            >
-                {config.emoji}
-            </motion.span>
+        <div className="flex items-start gap-3">
+            {/* Colored circle dot */}
+            <div
+                className="w-5 h-5 rounded-full flex-shrink-0 mt-0.5"
+                style={{ backgroundColor: config.color }}
+            />
 
             {/* Medal Info */}
             <div>
-                <div className="flex items-center gap-1.5">
-                    <span className="text-sm font-medium text-gray-900">{config.label}</span>
-                    <span className="text-sm font-normal text-gray-900">{count}</span>
+                <div className="flex items-center gap-2">
+                    <span className="text-base font-medium text-gray-900">{config.label}</span>
+                    <span className="text-xs text-gray-400 font-medium">i</span>
                 </div>
-                <p className="text-xs text-gray-500">{label}</p>
+                <p className="text-sm text-gray-500">{label}</p>
             </div>
         </div>
     );

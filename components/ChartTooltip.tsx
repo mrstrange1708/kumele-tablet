@@ -20,33 +20,40 @@ export default function ChartTooltip({ visible, data, position }: ChartTooltipPr
         <AnimatePresence>
             {visible && (
                 <motion.div
-                    initial={{ opacity: 0, y: 10, scale: 0.9 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 10, scale: 0.9 }}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -10 }}
                     transition={{ duration: 0.15, ease: "easeOut" }}
-                    className="fixed z-50 bg-white rounded-xl shadow-xl p-3 border border-gray-100 pointer-events-none min-w-[180px]"
+                    className="fixed z-50 bg-white rounded-xl shadow-lg border border-gray-100 p-4 pointer-events-none"
                     style={{
-                        left: position?.x ?? 0,
-                        top: position?.y ?? 0,
-                        transform: 'translate(-50%, calc(-100% - 12px))',
+                        left: (position?.x ?? 0) + 20,
+                        top: (position?.y ?? 0) - 20,
                     }}
                 >
-                    <div className="flex flex-col gap-2">
-                        <p className="text-sm font-semibold text-gray-900">{data.activity}</p>
-                        <div className="flex items-center justify-between gap-6">
-                            <span className="text-xs text-gray-500">90's Hip-Hop</span>
-                            <span className="text-sm font-semibold text-gray-900">
-                                ${data.amount} • 70hours
-                            </span>
+                    <div className="flex gap-6">
+                        {/* Left Column - Group meditation */}
+                        <div className="flex flex-col gap-1">
+                            <p className="text-sm font-semibold text-gray-900">Group meditation</p>
+                            <div className="flex items-center gap-1.5">
+                                <span className="text-sm font-bold text-gray-900">${data.amount}</span>
+                                <span className="text-xs">🧘</span>
+                                <span className="text-xs text-gray-500">Spirituality</span>
+                            </div>
+                        </div>
+
+                        {/* Divider */}
+                        <div className="w-px bg-gray-200" />
+
+                        {/* Right Column - 90's Hip-Hop */}
+                        <div className="flex flex-col gap-1">
+                            <p className="text-sm font-semibold text-gray-900">90's Hip-Hop</p>
+                            <div className="flex items-center gap-1.5">
+                                <span className="text-sm font-bold text-gray-900">$100</span>
+                                <span className="text-xs">🏠</span>
+                                <span className="text-xs text-gray-500">House</span>
+                            </div>
                         </div>
                     </div>
-                    {/* Tooltip arrow */}
-                    <div
-                        className="absolute left-1/2 bottom-0 w-3 h-3 bg-white border-r border-b border-gray-100"
-                        style={{
-                            transform: 'translateX(-50%) translateY(50%) rotate(45deg)',
-                        }}
-                    />
                 </motion.div>
             )}
         </AnimatePresence>

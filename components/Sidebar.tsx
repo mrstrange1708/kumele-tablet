@@ -1,47 +1,46 @@
 'use client';
 
 import React from 'react';
-import {
-    Home,
-    Users,
-    Building2,
-    Gift,
-    Palette,
-    Settings,
-    Plus,
-    ShoppingCart
-} from 'lucide-react';
+import Image from 'next/image';
 
 const navigationItems = [
-    { icon: Home, label: 'Home', active: true },
-    { icon: Users, label: 'Users' },
-    { icon: Building2, label: 'Building' },
-    { icon: Gift, label: 'Gifts' },
-    { icon: Palette, label: 'Palette' },
-    { icon: Settings, label: 'Settings' },
-    { icon: Plus, label: 'Add' },
-    { icon: ShoppingCart, label: 'Cart' },
+    { src: '/assests/Home.png', label: 'Home', active: false },
+    { src: '/assests/lab.png', label: 'Lab' },
+    { src: '/assests/basket.png', label: 'Basket' },
+    { src: '/assests/msg.png', label: 'Messages' },
+    { src: '/assests/torch.png', label: 'Torch' },
+    { src: '/assests/stats.png', label: 'Stats', active: true },  // Stats is active based on Figma
+    { src: '/assests/settings.png', label: 'Settings' },
+    { src: '/assests/Cart.png', label: 'Cart' },
 ];
 
 export default function Sidebar() {
     return (
-        <aside className="w-16 bg-[#2a2a2a] flex flex-col items-center py-6 gap-4">
-            {navigationItems.map((item, index) => {
-                const Icon = item.icon;
-                return (
+        <aside className="w-16 bg-white border-r border-gray-200 flex flex-col items-center py-8 gap-8">
+            {navigationItems.map((item, index) => (
+                <div
+                    key={index}
+                    className="relative w-full flex items-center justify-center"
+                >
+                    {/* Blue active indicator on left */}
+                    {item.active && (
+                        <div className="absolute left-0 w-1 h-8 bg-[#0052FF] rounded-r-full" />
+                    )}
+
                     <button
-                        key={index}
-                        className={`nav-icon-btn ${item.active ? 'active' : ''}`}
+                        className="w-10 h-10 flex items-center justify-center transition-all duration-200 hover:opacity-80"
                         aria-label={item.label}
                     >
-                        <Icon
-                            size={20}
-                            className={`${item.active ? 'text-white' : 'text-gray-400'
-                                } transition-colors duration-200`}
+                        <Image
+                            src={item.src}
+                            alt={item.label}
+                            width={28}
+                            height={28}
+                            className="object-contain"
                         />
                     </button>
-                );
-            })}
+                </div>
+            ))}
         </aside>
     );
 }
